@@ -134,7 +134,7 @@ function showPosition() {
   }
 }
 
-window.onload = showPosition();
+// window.onload = showPosition();
 
 /*
 async function fetch_input() {
@@ -192,5 +192,9 @@ async function fetch_input() {
   change_table();
 }
 
-// document.getElementById("submit").addEventListener("click", fetch_input)
-document.getElementById("run").addEventListener("click", fetch_input);
+// voor eerdere knop met button-html-tag
+// document.getElementById("run").addEventListener("click", fetch_input);
+
+document.getElementById('form_1').addEventListener('submit', function() {
+alert("javascript activeren door op de input-submit-knop te drukken, werkt, MAAR de JavaScript daarna laden lukt niet - ik vermoed omwille van dat submit enzo de pagina vernieuwt (kan je zien aan de URL die verandert in de browser");
+});

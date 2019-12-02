@@ -1,7 +1,8 @@
 opdracht: eerdere opdracht (javascript) weather app opnieuw maken in php (zonder iets van basisinfo gekregen te hebben)
 
 hele de boel gecloned naar hier en dan wat bestanden gekopieerd naar hoofdmap
-edit: was niet de juiste versie.
+edit: was niet de juiste versie die als master stond in 
+-> to do: die file als master goed zetten
 
 
 wat heb ik nodig? 
@@ -11,3 +12,22 @@ form action naar ander php bestadn sturen
 https://youtu.be/ZdP0KM49IVk?t=638
 
 als ik tijd heb : headers enzo hergebruiken
+
+
+
+voor ergens in notities over HTML
+required gaat niet werken als je standaard value gebruikt
+
+html form werkt mogelijk ook enkel en alleen met input
+-> to do, maar niet dringend: zien hoe ik javascript kan doen werken met klik op inputknop, want dat was de reden waarom ik uiteindelijk voor een button ben gegaan
+antwoord: 
+document.getElementById('form_1').addEventListener('submit', function() {
+alert("javascript activeren door op de input-submit-knop te drukken, werkt, MAAR de JavaScript daarna laden lukt niet - ik vermoed omwille van dat submit enzo de pagina vernieuwt (kan je zien aan de URL die verandert in de browser")
+};		
+toch vreem dan, dat de alert knop er toch nog voor komt, maar console.log lukt niet
+
+
+ te checken:
+There is a library named CURL in php which is widely used for API requests.
+
+CURL is a tool to transfer data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS, GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET and TFTP).

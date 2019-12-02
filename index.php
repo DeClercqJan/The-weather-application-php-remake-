@@ -26,28 +26,56 @@
                         your actual location. Alternatively, you can manually enter the city</p>
                 </section>
                 <section class="middle_section">
-                    <form>
+                    <form action="index.php" method="post" id="form_1">
                         <fieldset>
                             <legend id="table_legend">Manually enter the town you want the forecast for</legend>
                                 <div><label for="input_field_city">Your city</label>
-                                    <input type="text" name="input_field_name_1" id="input_field_city"
-                                        value="enter your city here" required /></br>
+                                    <input type="text" name="city" id="input_field_city"
+                                        placeholder="enter your city here" required /></br>
                                 </div>
                                 <div><label for="input_field_country">Your country (optional)</label>
-                                    <input type="text" name="input_field_name_2" id="input_field_country"
-                                        value="enter your country code (2characters) here" maxlength="2"
+                                         <input type="text" name="country" id="input_field_country"
+                                         maxlength="2" placeholder="enter your country code (2characters)"
                                          /></br>
+                                    <!-- <input type="text" name="country" id="input_field_country"
+                                         value="enter your country code (2characters) here" maxlength="2" 
+                                         /></br> -->
                                 </div>
                                 <div>
                                     <!-- <input type="submit" value="submit" id="submit" class="submit"> -->
-                                    <button type="button" id="run">Get forecast</button>
-                                </div>
+                                    <!-- <button type="button" id="run">Get forecast</button> -->
+                                <!-- eens proberen met input ipv button om te zien of PHP hier beter op reageert -->
+                            <input type="submit" id="run" value="get the forecast">
+                            </div>
                         </fieldset>
                     </form>
                 </section>
                 <section class="bottom_section">
                     <table>
-                        <caption>Forecast for your town for the next 5 days at noon</caption>
+                    <?php 
+                                        if (isset($_POST["country"])) {
+                                            // geeft probleem met value-tekst van inputfield. value dus verwijderd en expliciet voor de attriubute placeholder gekozen
+                                            $country = $_POST["country"];
+                    
+                                        }
+                                        else {
+                                            $country = "?";
+                                        }
+                    if (isset($_POST["city"])) {
+                        // geeft probleem met value-tekst van inputfield. value dus verwijderd en expliciet voor de attriubute placeholder gekozen
+                    $city = $_POST["city"];
+                    // werkende link in browser: https://api.openweathermap.org/data/2.5/forecast/?q=bruges,be&appid=fac9676aa8de6252977e1a8672e861e2"
+// is het GET dat ik ndoig heb?
+// EDIT: iemand die zegt dat GET beter is voor privacy(komt niet in URL terecht)
+// oef, iets werkends gevonden, nu nog omvormen van bestand
+$homepage = file_get_contents('https://api.openweathermap.org/data/2.5/forecast/?q=bruges,be&appid=fac9676aa8de6252977e1a8672e861e2');
+echo $homepage;
+                }
+                else {
+                    $city = "?";
+                }
+?>
+                        <caption>Forecast for your <?php echo "$city, $country"?> for the next 5 days at noon</caption>
                         <thead>
                             <tr>
                                 <th id="town">Town</th>
