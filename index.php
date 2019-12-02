@@ -68,8 +68,57 @@
 // is het GET dat ik ndoig heb?
 // EDIT: iemand die zegt dat GET beter is voor privacy(komt niet in URL terecht)
 // oef, iets werkends gevonden, nu nog omvormen van bestand
-$homepage = file_get_contents('https://api.openweathermap.org/data/2.5/forecast/?q=bruges,be&appid=fac9676aa8de6252977e1a8672e861e2');
-echo $homepage;
+$data_json = file_get_contents('https://api.openweathermap.org/data/2.5/forecast/?q=bruges,be&appid=fac9676aa8de6252977e1a8672e861e2');
+// echo $data_json;
+$data = json_decode($data_json);
+$test = $data->message;
+// echo $test;
+// $test_2 = $data->list;
+// echo $test_2;
+// var_dump($test_2);
+// print_r($test_2);
+// $test_3 = $test_2[0]->dt;
+//echo $test_3;
+$data_list = $data->list;
+// echo $data_list;
+// print_r($data_list);
+$data_day_1 = $data_list[0];
+// echo $data_day_1;
+// print_r($data_day_1);
+$data_time = $data_day_1->dt_txt;
+// print_r($data_sys);
+// echo $data_date;  
+// NU IN HET KORT 
+//echo $data->list[0]->dt_txt; 
+// nu bouwen om goede structuur te hebben
+$data_list = $data->list;
+// DIT HIERONDER PRINT TEVEEL; ALLE UREN
+/* foreach ($data_time as $time) {
+    print_r($time->dt_txt);
+    // echo $days[i]->dt_txt;
+}
+*/
+// ik wil enkel die waarden behouden die over de middag gaan
+// Note our use of ===.  Simply == would not work as expected
+// because the position of 'a' was the 0th (first) character.
+$data_noon = array();
+foreach ($data_list as $element) {
+    $data_time = $element->dt_txt;
+    // print_r($data_time);
+    $pos = strpos($data_time, "12:00");
+     if ($pos === false) {
+      //  echo "The string 12:00 was not found in the string '$time'";
+    } else {
+     //   echo "The string 12:00 was found in the string '$time'";
+     //   echo " and exists at position $pos";
+     // DEZE BEVAT HET GELIJK VAN ALLES EEN AANTAL KEER
+     // print_r($data_time); 
+     array_push($data_noon, $data_time);
+    }
+}
+print_r($data_noon);
+
+
                 }
                 else {
                     $city = "?";
