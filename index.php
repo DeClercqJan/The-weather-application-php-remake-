@@ -59,7 +59,7 @@
                     
                                         }
                                         else {
-                                            $country = "?";
+                                             $country = "";
                                         }
                     if (isset($_POST["city"])) {
                         // geeft probleem met value-tekst van inputfield. value dus verwijderd en expliciet voor de attriubute placeholder gekozen
@@ -68,7 +68,18 @@
 // is het GET dat ik ndoig heb?
 // EDIT: iemand die zegt dat GET beter is voor privacy(komt niet in URL terecht)
 // oef, iets werkends gevonden, nu nog omvormen van bestand
-$data_json = file_get_contents('https://api.openweathermap.org/data/2.5/forecast/?q=bruges,be&appid=fac9676aa8de6252977e1a8672e861e2');
+// $data_json = file_get_contents('https://api.openweathermap.org/data/2.5/forecast/?q=bruges,be&appid=fac9676aa8de6252977e1a8672e861e2');
+$comma_country = "";
+if (!empty($county)) {
+    $comma_country = ",$country";
+}
+else {
+    $comma_country = "";
+}
+
+$url = "https://api.openweathermap.org/data/2.5/forecast/?q=$city" . "$comma_country" . "&appid=fac9676aa8de6252977e1a8672e861e2";
+// var_dump($url);
+$data_json = file_get_contents($url);
 // echo $data_json;
 $data = json_decode($data_json);
 $test = $data->message;
@@ -145,7 +156,7 @@ foreach ($data_list as $element) {
                     $city = "?";
                 }
 ?>
-                        <caption>Forecast for your <?php echo "$city, $country"?> for the next 5 days at noon</caption>
+                        <caption>Forecast for your <?php echo $city . "," . $country?> for the next 5 days at noon</caption>
                         <thead>
                             <tr>
                                 <th id="town">Town</th>
