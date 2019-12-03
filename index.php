@@ -72,7 +72,7 @@ $data_json = file_get_contents('https://api.openweathermap.org/data/2.5/forecast
 // echo $data_json;
 $data = json_decode($data_json);
 $test = $data->message;
-// echo $test;
+$test;
 // $test_2 = $data->list;
 // echo $test_2;
 // var_dump($test_2);
@@ -102,6 +102,9 @@ $data_list = $data->list;
 // Note our use of ===.  Simply == would not work as expected
 // because the position of 'a' was the 0th (first) character.
 $data_noon = array();
+$data_noon_day = array();
+$data_noon_day_only_pair_array = array();
+$data_selected = array();
 foreach ($data_list as $element) {
     $data_time = $element->dt_txt;
     // print_r($data_time);
@@ -114,9 +117,27 @@ foreach ($data_list as $element) {
      // DEZE BEVAT HET GELIJK VAN ALLES EEN AANTAL KEER
      // print_r($data_time); 
      array_push($data_noon, $data_time);
+     // foreach ($data_noon as $key => $value) {
+        // echo $value;
+        // $data_noon_day_only = explode(" ", $value); 
+// print_r($data_noon_day_only);
+    //}
+     array_push($data_selected, $element);
     }
 }
-print_r($data_noon);
+
+// foreach ($data_noon as $key => $value) {
+//    $data_noon_day_only_pair = explode(" ", $value); 
+//    $data_noon_day_only_single = $data_noon_day_only_pair[0];
+//    array_push($data_noon_day_only_pair_array, $data_noon_day_only_single);
+//}
+ // print_r($data_noon);
+// print_r ($data_noon_day_only_pair);
+// print_r ($data_noon_day_only_single);
+// WERKT OM VERSCHILLENDE DATA AFZONDERLIJK TE PAKKEN, MAAR VOOR HIERONDER HTML AAN TE PASSEN, WIL IK HET IN 1 KEER KUNNEN; DAT IK 1 ARRAY OVERLOOP EN NIET MEERDERE MOET MENGEN
+// print_r ($data_noon_day_only_pair_array);
+// print_r($data_selected);
+
 
 
                 }
@@ -133,7 +154,43 @@ print_r($data_noon);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr id="table_row_1">
+                        <?php 
+                        
+                         $i = 1; 
+                            foreach($data_selected as $element) {
+                               
+                                $day_hour_separated= explode(" ", $element->dt_txt);
+                                $element_day = $day_hour_separated[0];
+                                // moet omvormen, want ander systeem dan dat wij gebruiken
+                                $element_day_reorded = date("d-m-Y", strtotime($element_day));
+                                // dit geeft dag die ermee overeenkomt
+                                // $element_weekday = date("l", strtotime($element_day));
+                                $element_weekday = date("l", strtotime($element_day_reorded));
+                                ?>
+                                <tr id="table_row_<?php echo $i ?>">
+                                <td>
+                                <?php // echo $element->dt_txt; 
+                                        echo $element_day_reorded; 
+                                        ?> 
+                                </td>
+                                <td>
+                                <?php // echo $element->dt_txt; 
+                                        // echo $element_day_reorded;
+                                        echo $element_weekday;
+                                        ?> 
+                                </td>
+                                </td>
+                                <td>
+                                <?php // echo $element->dt_txt; 
+                                        echo $element->weather[0]->description; 
+                                        ?> 
+                                </td>
+                                </tr>
+                                <?php
+                                $i ++;
+                            } 
+                        ?>
+                            <!-- <tr id="table_row_1">
                                 <td>date x</td>
                                 <td>?</td>
                                 <td>?</td>
@@ -158,6 +215,7 @@ print_r($data_noon);
                                 <td>?</td>
                                 <td>?</td>
                             </tr>
+                            -->
                         </tbody>
                     </table>
                 </section>
