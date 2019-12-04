@@ -16,6 +16,7 @@
         <img class="header_pics" src="images/nao.jpg" id="test_icon">
         <h1>The weather tomorrow today<br> with Nao and Jan</h1>
         <img class="header_pics" src="images/jan.jpg">
+        <button id="test">Reload page</button>
     </header>
     <main>
         <article>

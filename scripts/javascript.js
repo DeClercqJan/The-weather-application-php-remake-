@@ -1,5 +1,6 @@
 forecast_array = [];
 
+/*
 function change_table() {
   // console.log("test change table");
   table = document.getElementsByTagName("table");
@@ -84,10 +85,7 @@ function change_table() {
   // console.log(all_data.city.name);
   document.getElementById("town").innerHTML = all_data.city.name;
 }
-
-function isFloat(x) {
-  return !!(x % 1);
-}
+*/
 
 async function fetch_coordinates() {
   // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}
@@ -122,6 +120,7 @@ async function fetch_coordinates() {
 
 function showPosition() {
   if (navigator.geolocation) {
+    console.log("test");
     navigator.geolocation.getCurrentPosition(function(position) {
       // getting "is not a float"-error from API
       // console.log(position);
@@ -134,67 +133,10 @@ function showPosition() {
   }
 }
 
-// window.onload = showPosition();
+window.onload = showPosition();
 
-/*
-async function fetch_input() {
-  // standaarddata voor moskou await fetch("http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=fac9676aa8de6252977e1a8672e861e2")
-  // example await fetch("https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22")
- //  gent await fetch("https://api.openweathermap.org/data/2.5/weather?q=Gent,be&appid=fac9676aa8de6252977e1a8672e861e2")
- await fetch("https://api.openweathermap.org/data/2.5/forecast?q=Gent,be&appid=fac9676aa8de6252977e1a8672e861e2")
- .then(ste => ste.json())
-  .then(result => {
-     // console.log(result)
-      // console.log(result.city)
-      // console.log(result.list)
-      // console.log(result.list.weather);
-      result.list.forEach(element => {
-          // console.log(element);
-         // console.log(element.weather)
-         // console.log(element.weather[0]);
-         // console.log(element.weather[0].main);
-         // console.log(element.weather[0].description);
-      });
+document.getElementById("test").addEventListener("click", function () {
+console.log("test");
 
-  })
-}
-*/
-
-async function fetch_input() {
-  // var city = "Ghent";
-  // console.log(document.getElementById("input_field").value);
-  var city = document.getElementById("input_field_city").value;
-  // var country = "BE";
-  var country_input = document.getElementById("input_field_country").value;
-  var country = country_input.toUpperCase();
-  // console.log(country);
-  var link = "https://api.openweathermap.org/data/2.5/forecast/?q=";
-  var key = "fac9676aa8de6252977e1a8672e861e2";
-
-  // THIJS: AWAIT DOESN'T DO ANYTHING: FETCH ALONE + THEN / OR: USE CONST VARIABLE WITH AWAIT FETCH (PROMISE?) . otherwise? code would run without making sense??
-  await fetch(link + city + "," + country + "&appid=" + key)
-    .then(element => element.json())
-    .then(element => {
-      all_data = element;
-      // console.log(element);
-      // console.log(result.city)
-      // console.log(result.list)
-      // console.log(result.list.weather);
-      element.list.forEach(element => {
-        // console.log(element);
-        // console.log(element.weather)
-        // console.log(element.weather[0]);
-        // console.log(element.weather[0].main);
-        // console.log(element.weather[0].description);
-      });
-      forecast_array = element.list;
-    });
-  change_table();
-}
-
-// voor eerdere knop met button-html-tag
-// document.getElementById("run").addEventListener("click", fetch_input);
-
-document.getElementById('form_1').addEventListener('submit', function() {
-alert("javascript activeren door op de input-submit-knop te drukken, werkt, MAAR de JavaScript daarna laden lukt niet - ik vermoed omwille van dat submit enzo de pagina vernieuwt (kan je zien aan de URL die verandert in de browser");
-});
+window.location.reload();
+})

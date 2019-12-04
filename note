@@ -43,8 +43,28 @@ $data->list[0]->dt_txt;
 
 -> NOTITIES NOG TE VERPLAATSEN NAAR WORDBESTAND
 
-TO DO:
+TO DO:  
 - geolocation services
+    precies geen gemakkelijke manier met php. moet GeoIP installeren ofzo om IP-adres van gebruiker te gaan opzoeken
+    -> gemakkelijker en ook goede oefening, voor Javascript en interactie met PHP: proberen de boel in local storage te zetten om dan met PHP dat te accessen
+    probleem: javascript is client-side, terwijl PHP server-side is ...?
+Guide: https://serverpilot.io/docs/how-to-install-the-php-geoip-extension
+error kregen en opgelost via https://stackoverflow.com/questions/52078688/sudo-pecl7-2-sp-command-not-found 
+maar dan: https://support.maxmind.com/geolite-legacy-discontinuation-notice/ 
+moet geolite2 gebruiken
+ The API also works with the free GeoLite2 databases. https://maxmind.github.io/GeoIP2-php/
+    is met curl dus die ook installeren, maar https://www.luminanetworks.com/docs-lsc-610/Topics/SDN_Controller_Software_Installation_Guide/Appendix/Installing_cURL_for_Ubuntu_1.html
+, run in the root directory of your project: https://maxmind.github.io/GeoIP2-php/
+lukt niet: php composer.phar require geoip2/geoip2:~2.0
+suggesties van gerief aanpassen in ini-file van zowel php-map als cli-map
+
+ander ideetje:
+1. javascript geolocation info
+2. cookie of local stoarge gebruiken
+3.a checken of ik die info naar de URL kan schrijven zodat ik ze met post kan pakken
+4.b checken of ik met javascript de pagina kan relaoden JUP
+! probleem: krijg melding: "A Geolocation request can only be fulfilled in a secure context. javascript.js:127:26"
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${my_position_latitude}&lon=${my_position_longitude}&appid=fac9676aa8de6252977e1a8672e861e2`
 - javascript helemaal uitschakelen
 - pushen naar master
 - online zetten via github pages
@@ -54,6 +74,8 @@ Be careful to get an array, not an object, back from json_decode().
 PHP has very good documentation available on www.php.net. There is a nice trick you can use to quickly get documentation on any php function. Just type in the browser php.net/FUNCTION_NAME and you will arrive at the correct documentation page. Also spend some time clicking on the "See Also" section at the bottom of each page, this will quickly get you a good overview of what is possible with PHP.
 
 te checken https://phptherightway.com/
+
+
 
 
 
