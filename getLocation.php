@@ -1,4 +1,5 @@
 <?php
+ session_start();
 // vraag: kan ik kan ik de jquery niet naar zichzelf ipv van naar getlocaiton doen verwijzen?
 
 //if latitude and longitude are submitted
@@ -27,7 +28,7 @@ if(!empty($_POST['latitude']) && !empty($_POST['longitude'])){
            // $location = $data->results[0]->formatted_address;
            $location = "status is 200";
            $data_list = $data_2->list;
-    
+           $data_list_json = json_encode($data_list);
            // var_dump($data_list);
 
         }else{
@@ -38,6 +39,6 @@ if(!empty($_POST['latitude']) && !empty($_POST['longitude'])){
     //return address to ajax 
     //echo $location;
 
-    print_r($data_list);
+    print_r($data_list_json);
     // echo $data_list;
 }

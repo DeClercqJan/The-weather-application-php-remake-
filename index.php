@@ -9,6 +9,40 @@
     <link rel="stylesheet" href="/styles/reset.css" class="style">
     <link rel="stylesheet" href="/styles/style.css" class="style">
     <!-- probably need to add more to head (description, author ...) + restructure (location script?)-->
+    <!-- dit van guide https://www.codexworld.com/get-visitor-location-using-html5-geolocation-api-php/ -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showLocation);
+            } else {
+                $('#location').html('Geolocation is not supported by this browser.');
+            }
+        });
+
+        function showLocation(position) {
+            var latitude = position.coords.latitude;
+            console.log(latitude);
+            var longitude = position.coords.longitude;
+            console.log(longitude);
+
+            $.ajax({
+                type: 'POST',
+                url: 'getLocation.php',
+                // krigj ik niet met index.php, want dan gaat hij heel de inhoud van index (inclusief head enzo) binnen de tag locatoin gaan zetten"
+                // url: 'index.php',
+                data: 'latitude=' + latitude + '&longitude=' + longitude,
+                success: function(msg) {
+                    if (msg) {
+                        // $("#location").html(msg);
+                        // sessionStorage.setItem('myCat', msg);
+                    } else {
+                        $("#location").html('Not Available');
+                    }
+                }
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -49,11 +83,31 @@
                     <table>
                         <?php
                         // dit nodig?
-  session_start();
+                        session_start();
+                        // php kan niet aan cookies, enkel javascript kan dat
 
-  $cookie_content = session_get_cookie_params();
-  
-  var_dump($cookie_content);
+                        $cookie_content = session_get_cookie_params();
+                        // var_dump($cookie_content);
+                        // NOG WAT PRUTSEN MET ENCODE EN DECODE
+                        $data_list = json_decode($_COOKIE["myCat"], true);
+                        var_dump($data_list);
+                        $data_noon = array();
+                        $data_noon_day = array();
+                        $data_noon_day_only_pair_array = array();
+                        $data_selected = array();
+                        foreach ($data_list as $element) {
+                            echo $element;
+                            // var_dump($element);
+                            $data_time = $element->dt_txt;
+                            $element_noon = strpos($data_time, "12:00");
+                            if ($element_noon === false) {
+                                //  echo "The string 12:00 was not found in the string '$time'";
+                            } else {
+                                array_push($data_noon, $data_time);
+                                array_push($data_selected, $element);
+                            }
+                        }
+                        // var_dump($data_selected);
 
                         // EDIT: iemand die zegt dat GET beter is voor privacy(komt niet in URL terecht)
                         if (isset($_POST["country"])) {
@@ -162,39 +216,7 @@
         </adress>
     </footer>
     <script type="text/javascript" src="/scripts/javascript.js"></script>
-    <!-- dit van guide https://www.codexworld.com/get-visitor-location-using-html5-geolocation-api-php/ -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showLocation);
-            } else {
-                $('#location').html('Geolocation is not supported by this browser.');
-            }
-        });
 
-        function showLocation(position) {
-            var latitude = position.coords.latitude;
-            console.log(latitude);
-            var longitude = position.coords.longitude;
-            console.log(longitude);
-            $.ajax({
-                type: 'POST',
-                url: 'getLocation.php',
-                // krigj ik niet met index.php, want dan gaat hij heel de inhoud van index (inclusief head enzo) binnen de tag locatoin gaan zetten"
-                // url: 'index.php',
-                data: 'latitude=' + latitude + '&longitude=' + longitude,
-                success: function(msg) {
-                    if (msg) {
-                        // $("#location").html(msg);
-                        sessionStorage.setItem('myCat', msg);
-                    } else {
-                        $("#location").html('Not Available');
-                    }
-                }
-            });
-        }
-    </script>
     <script>
         /*
         if (sessionStorage.getItem("myCat")) {
