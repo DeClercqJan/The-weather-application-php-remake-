@@ -48,6 +48,13 @@
                 <section class="bottom_section">
                     <table>
                         <?php
+                        // dit nodig?
+  session_start();
+
+  $cookie_content = session_get_cookie_params();
+  
+  var_dump($cookie_content);
+
                         // EDIT: iemand die zegt dat GET beter is voor privacy(komt niet in URL terecht)
                         if (isset($_POST["country"])) {
                             // geeft probleem met value-tekst van inputfield. value dus verwijderd en expliciet voor de attriubute placeholder gekozen
@@ -90,7 +97,11 @@
 
                         ?>
                         <!-- probleem: ik krijg $country of $country_input niet in het onderstaande-->
-                        <caption>Forecast for <?php if (!isset($city)) {echo $city;} else {echo "your locaton";} ?>
+                        <caption>Forecast for <?php if (!isset($city)) {
+                                                    echo $city;
+                                                } else {
+                                                    echo "your locaton";
+                                                } ?>
                             <?php if (!empty($country)) {
                                 echo "($country)";
                             } ?>
@@ -170,16 +181,28 @@
             $.ajax({
                 type: 'POST',
                 url: 'getLocation.php',
+                // krigj ik niet met index.php, want dan gaat hij heel de inhoud van index (inclusief head enzo) binnen de tag locatoin gaan zetten"
+                // url: 'index.php',
                 data: 'latitude=' + latitude + '&longitude=' + longitude,
                 success: function(msg) {
                     if (msg) {
-                        $("#location").html(msg);
+                        // $("#location").html(msg);
+                        sessionStorage.setItem('myCat', msg);
                     } else {
                         $("#location").html('Not Available');
                     }
                 }
             });
         }
+    </script>
+    <script>
+        /*
+        if (sessionStorage.getItem("myCat")) {
+            // Restore the contents of the text field
+            test = sessionStorage.getItem("myCat");
+            console.log(test);
+        }
+        */
     </script>
 </body>
 
