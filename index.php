@@ -25,6 +25,8 @@
                     <h2>Get a 5-day foreceast for your town </h2>
                     <p>Accept the geolocation geolocation service prompted in your browsers to get the forecast based on
                         your actual location. Alternatively, you can manually enter the city</p>
+                    <!-- dit van guide https://www.codexworld.com/get-visitor-location-using-html5-geolocation-api-php/ -->
+                    <p>Your Location: <span id="location"></span></p>
                 </section>
                 <section class="middle_section">
                     <form action="index.php" method="post" id="form_1">
@@ -85,11 +87,14 @@
                         } else {
                             $city = "?";
                         }
+
                         ?>
                         <!-- probleem: ik krijg $country of $country_input niet in het onderstaande-->
-                        <caption>Forecast for <?php echo $city;?> 
-                        <?php if(!empty($country)){echo "($country)";} ?>
-                         for the next 5 days at noon</caption>
+                        <caption>Forecast for <?php if (!empty($country)) {echo $city;} else {echo "your locaton";} ?>
+                            <?php if (!empty($country)) {
+                                echo "($country)";
+                            } ?>
+                            for the next 5 days at noon</caption>
                         <thead>
                             <tr>
                                 <th id="town">Town</th>
@@ -146,6 +151,36 @@
         </adress>
     </footer>
     <script type="text/javascript" src="/scripts/javascript.js"></script>
+    <!-- dit van guide https://www.codexworld.com/get-visitor-location-using-html5-geolocation-api-php/ -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showLocation);
+            } else {
+                $('#location').html('Geolocation is not supported by this browser.');
+            }
+        });
+
+        function showLocation(position) {
+            var latitude = position.coords.latitude;
+            console.log(latitude);
+            var longitude = position.coords.longitude;
+            console.log(longitude);
+            $.ajax({
+                type: 'POST',
+                url: 'getLocation.php',
+                data: 'latitude=' + latitude + '&longitude=' + longitude,
+                success: function(msg) {
+                    if (msg) {
+                        $("#location").html(msg);
+                    } else {
+                        $("#location").html('Not Available');
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
