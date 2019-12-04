@@ -26,22 +26,6 @@ if(!empty($_POST['latitude']) && !empty($_POST['longitude'])){
            //get address from json data
            // $location = $data->results[0]->formatted_address;
            $location = "status is 200";
-           $data_list = $data->list;
-                            // ik wil enkel die waarden behouden die over de middag gaan
-                            $data_noon = array();
-                            $data_noon_day = array();
-                            $data_noon_day_only_pair_array = array();
-                            $data_selected = array();
-                            foreach ($data_list as $element) {
-                                $data_time = $element->dt_txt;
-                                $element_noon = strpos($data_time, "12:00");
-                                if ($element_noon === false) {
-                                    //  echo "The string 12:00 was not found in the string '$time'";
-                                } else {
-                                    array_push($data_noon, $data_time);
-                                    array_push($data_selected, $element);
-                                }
-                            }
         }else{
             $location =  "test status niet ok";
            // location =  '';

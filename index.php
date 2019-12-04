@@ -90,7 +90,7 @@
 
                         ?>
                         <!-- probleem: ik krijg $country of $country_input niet in het onderstaande-->
-                        <caption>Forecast for <?php if (!empty($country)) {echo $city;} else {echo "your locaton";} ?>
+                        <caption>Forecast for <?php if (!isset($city)) {echo $city;} else {echo "your locaton";} ?>
                             <?php if (!empty($country)) {
                                 echo "($country)";
                             } ?>
