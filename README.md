@@ -1,13 +1,18 @@
 # The-weather-application-php-remake-
 
 ## basic idea
-- 
+- automatic forecast on basis of geolocation and/or enter city (country optional) and get the forecast
 - exercise to recreate earlier exercise without having any background in PHP 
 - javascript version on https://github.com/DeClercqJan/The-weather-application-javascript-version-
 
 ## implementation
 
 ## to do's
+- geolocation services. Tried to implement geolocation service with the maximum amount of PHP. Now a mess of PHP, JS, Jquery
+- clean up code
+- add icons for clouds etc.
+- styling
+- push the thing to master once all is well
 
 # ORIGINAL ASSIGNMENT BELOW:
 
