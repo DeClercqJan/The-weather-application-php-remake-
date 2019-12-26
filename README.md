@@ -1,7 +1,8 @@
 # The-weather-application-php-remake-
 
 ## basic idea
-- automatic forecast on basis of geolocation and/or enter city (country optional) and get the forecast
+- automatic forecast on basis of geolocation (not working well)
+- and/or enter city (country optional) and get the forecast (working well)
 - exercise to recreate earlier exercise without having any background in PHP 
 - javascript version on https://github.com/DeClercqJan/The-weather-application-javascript-version-
 
