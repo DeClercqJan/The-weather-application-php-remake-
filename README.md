@@ -7,6 +7,7 @@
 - javascript version on https://github.com/DeClercqJan/The-weather-application-javascript-version-
 
 ## implementation
+- solo project
 
 ## to do's
 - geolocation services. Tried to implement geolocation service with the maximum amount of PHP. Now a mess of PHP, JS, Jquery
