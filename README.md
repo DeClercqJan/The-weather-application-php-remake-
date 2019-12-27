@@ -8,6 +8,7 @@
 
 ## implementation
 - solo project
+- filtered api's response to only display the forecast for 12:00 noon
 
 ## to do's
 - geolocation services. Tried to implement geolocation service with the maximum amount of PHP. Now a mess of PHP, JS, Jquery
